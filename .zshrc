@@ -44,29 +44,34 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.zsh_custom
+DEV="$HOME/dev"
+### Virtualenv
+export WORKON_HOME=$DEV/.virtualenvs
+export PROJECT_HOME=$DEV/.pythonProjects/Devel
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore gnu-utils python virtualenv pip pylint pep8 rsync thefuck tmux dotfiles)
+plugins=(git gitignore gnu-utils python virtualenvwrapper virtualenv pip pylint pep8 rsync tmux dotfiles)
 
 # User configuration
 
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-DEV="$HOME/dev"
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -102,7 +107,7 @@ alias clion='$DEV/clion-2016.2.2/bin/clion.sh &> /dev/null &'
 alias vim-install-plugins='vim +PluginInstall +qall'
 
 ### Python
-export PYTHONSTARTUP=~/.pythonrc
+export PYTHONSTARTUP=~/.pythonrc.py
 #### virtualenv and virtualenvwrapper
 # export WORKON_HOME=$HOME/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
