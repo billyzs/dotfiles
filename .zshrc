@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/szhou/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -55,7 +55,7 @@ plugins=(git gitignore gnu-utils python virtualenv pip pylint pep8 rsync thefuck
 
 # export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-
+DEV="$HOME/dev"
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -84,16 +84,16 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ### PyCharm
-alias pycharm='/home/szhou/Downloads/pycharm-2016.1.4/bin/pycharm.sh &> /dev/null &'
+# alias pycharm='/home/szhou/Downloads/pycharm-2016.1.4/bin/pycharm.sh &> /dev/null &'
 ### CLion
-alias clion='/home/szhou/Downloads/clion-2016.1.3/bin/clion.sh &> /dev/null &'
+alias clion='$DEV/clion-2016.2.2/bin/clion.sh &> /dev/null &'
 
 ### ROS Environment setup
-source /opt/ros/indigo/setup.zsh
-alias ros_image_view='rosrun image_view image_view image:=/camera/rgb/image_color'
+# source /opt/ros/indigo/setup.zsh
+# alias ros_image_view='rosrun image_view image_view image:=/camera/rgb/image_color'
 
 #### workspack setup ALWAYS comes after distro setup!
-source /home/szhou/catkin_ws/devel/setup.zsh
+# source /home/szhou/catkin_ws/devel/setup.zsh
 
 ### Powerline
 # . /usr/local/lib/python3.4/dist-packages/powerline/bindings/zsh/powerline.zsh
@@ -104,12 +104,12 @@ alias vim-install-plugins='vim +PluginInstall +qall'
 ### Python
 export PYTHONSTARTUP=~/.pythonrc
 #### virtualenv and virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=$HOME/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
 
 ### CUDA
-export PATH=/usr/local/cuda-7.5/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 ### Qt
 alias qmake4='qmake-qt4'

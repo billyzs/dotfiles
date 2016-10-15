@@ -9,7 +9,9 @@ function dtf-checkout {
     else
       echo "Backing up existing dotfiles";
       mkdir -p $HOME/.doftiles_backup
-      dtf checkout 2>&1 | egrep "s+\." | awk{'print $1'} | xargs -I{} mv {} $HOME/.dotfile_backup/{}
+      dtf checkout 2>&1 | egrep "s+\." | awk{'print $1'} | xargs -I{} mv {} $HOME/.dotfiles_backup/{}
   fi;
   dtf checkout
 }
+
+alias dtf-add="dtf add -f"
