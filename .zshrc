@@ -81,6 +81,7 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
+#
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
@@ -107,7 +108,7 @@ alias clion='$DEV/clion-2016.2.2/bin/clion.sh &> /dev/null &'
 alias vim-install-plugins='vim +PluginInstall +qall'
 
 ### Python
-export PYTHONSTARTUP=~/.pythonrc.py
+export PYTHONSTARTUP="$HOME/.pythonrc.py"
 #### virtualenv and virtualenvwrapper
 # export WORKON_HOME=$HOME/.virtualenvs
 # source /usr/local/bin/virtualenvwrapper.sh
