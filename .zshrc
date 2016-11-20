@@ -70,7 +70,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -93,7 +93,7 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias pycharm='/home/szhou/Downloads/pycharm-2016.1.4/bin/pycharm.sh &> /dev/null &'
 ### CLion
 alias clion='$DEV/clion-2016.2.2/bin/clion.sh &> /dev/null &'
-
+alias idea='$DEV/idea/bin/idea.sh &> /dev/null &'
 ### ROS Environment setup
 # source /opt/ros/indigo/setup.zsh
 # alias ros_image_view='rosrun image_view image_view image:=/camera/rgb/image_color'
