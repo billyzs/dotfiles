@@ -90,9 +90,9 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ### PyCharm
-# alias pycharm='/home/szhou/Downloads/pycharm-2016.1.4/bin/pycharm.sh &> /dev/null &'
+alias pycharm='nohup charm &> /dev/null &'
 ### CLion
-alias clion='nohup $DEV/clion-2016.2.2/bin/clion.sh &> /dev/null &'
+alias clion='nohup clion &> /dev/null &'
 alias idea='nohup $DEV/idea/bin/idea.sh &> /dev/null &'
 ### ROS Environment setup
 # source /opt/ros/indigo/setup.zsh
@@ -119,3 +119,4 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 
 ### Qt
 alias qmake4='qmake-qt4'
+export CPPLIBS="$HOME/dev/cpp-qt/src/libs"
