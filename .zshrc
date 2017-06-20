@@ -49,13 +49,13 @@ DEV="$HOME/dev"
 export WORKON_HOME=$DEV/.virtualenvs
 export PROJECT_HOME=$DEV/.pythonProjects/Devel
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore gnu-utils python virtualenvwrapper virtualenv pip pylint pep8 rsync tmux dotfiles)
+plugins=(git gitignore virtualenv tmux dotfiles)
 
 # User configuration
 
