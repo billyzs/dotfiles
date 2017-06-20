@@ -19,6 +19,7 @@ if dein#load_state('/home/bzs/.config/nvim/dein')
   call dein#add('zchee/deoplete-clang')
   call dein#add('dracula/vim')
   call dein#add('w0rp/ale')
+  call dein#add('vim-airline/vim-airline')
   call dein#end()
   call dein#save_state()
 endif
@@ -53,6 +54,13 @@ let g:deoplete#sources#clang#std = {'c': 'c11', 'cpp': 'c++1z', 'objc': 'c11', '
 "ale
 let g:ale_virtualenv_dir_names = ['/home/bzs/dev/.virtualenvs/nvim']
 let g:ale_python_yapf_executable = 'yapf'
+
+"Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:AirlineTheme = 'dracula'
+
 "Misc ============================================================
 imap ii <Esc>
 " Enable filetype plugins
@@ -63,7 +71,7 @@ color dracula
 set tabstop=4
 " Turn on the WiLd menu
 set wildmenu
-
+command Q execute "q!"
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
