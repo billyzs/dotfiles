@@ -1,95 +1,39 @@
-let g:python3_host_prog = '/home/billyzs/dev/.virtualenvs/nvim/bin/python'
-syntax on
+"dein setup script==================
+if &compatible
+  set nocompatible
+endif
+set runtimepath+=/home/bzs/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('/home/bzs/.config/nvim/dein')
+  call dein#begin('/home/bzs/.config/nvim/dein')
+
+  call dein#add('/home/bzs/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('zchee/deoplete-jedi', {'on_ft': ['py']})
+  " call dein#add('neomake/neomake')
+  " call dein#add('zchee/deoplete-clang', {'on_ft': ['c', 'h', 'cpp', 'hpp']})
+  call dein#end()
+  call dein#save_state()
+endif
+
+
 filetype plugin indent on
-set background=dark
-set autoindent
-set backspace=indent,eol,start
-set complete-=i
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set encoding=utf-8
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set showmode            " Show current mode.
-set ruler               " Show the line and column numbers of the cursor.
-set relativenumber
-set number              " Show the line numbers on the left side.
-set formatoptions+=o    " Continue comment marker in new lines.
-set textwidth=0         " Hard-wrap long lines as you type them.
-set expandtab           " Insert spaces when TAB is pressed.
-set tabstop=2           " Render TABs using this many spaces.
-set shiftwidth=2        " Indentation amount for < and > commands.
+syntax enable<Paste>
+"end of dein setup====================
 
-set noerrorbells        " No beeps.
-set modeline            " Enable modeline.
-set esckeys             " Cursor keys in insert mode.
-set linespace=0         " Set line-spacing to minimum.
-set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
+let g:python3_host_prog = '/home/bzs/dev/.virtualenvs/nvim/bin/python'
 
-" More natural splits
-set splitbelow          " Horizontal split below current.
-set splitright          " Vertical split to right of current.
+"deoplete =============
+" call deoplete#enable()
+let g:deoplete#enable_at_startup = 1 "enable with lazy load
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+"Python:
+"inoremap <silent><expr> <Tab>
+"    \ pumvisible() ? "\<C-n>" : deoplete#manual_complete()
 
-if !&scrolloff
-  set scrolloff=3       " Show next 3 lines while scrolling.
-endif
-if !&sidescrolloff
-  set sidescrolloff=5   " Show next 5 columns while side-scrolling.
-endif
-set display+=lastline
-set nostartofline       " Do not jump to first character with page commands.
-
-" Tell Vim which characters to show for expanded TABs,
-" trailing whitespace, and end-of-lines. VERY useful!
-if &listchars ==# 'eol:$'
-  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-endif
-set list                " Show problematic characters.
-
-" Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$\|\t/
-
-call plug#begin('~/.config/nvim/plugged')
-
-" General
-Plug 'benekastah/neomake'
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-clang'
-Plug 'davidhalter/jedi-vim'
-Plug 'Raimondi/delimitMate'
-Plug 'ervandew/supertab'
-Plug 'kien/ctrlp.vim'
-Plug 'thirtythreeforty/lessspace.vim'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-Plug 'bling/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-call plug#end()
-
-" deoplete
-call deoplete#enable()
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif "auto close scratch window"
-augroup omnifuncs
-  autocmd!
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
-autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-autocmd CompleteDone * pclose " To close preview window of deoplete automagically
-
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
+"Clang:
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
-" neomake
-autocmd! BufWritePost * Neomake " Run neomake on save
-
+let g:deoplete#sources#clang#std = [{'c': 'c11', 'cpp': 'c++1z', 'objc': 'c11', 'objcpp': 'c++1z'}]
 
