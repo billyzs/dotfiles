@@ -3,6 +3,7 @@
 Fisrt do 
 ```bash
 alias dtf = '/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+git clone --bare <git-repo-url> $HOME/.dotfiles
 ```
 
 Then, remove and backup existing doftiles with
