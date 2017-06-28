@@ -47,7 +47,6 @@ ZSH_CUSTOM=$HOME/.zsh_custom
 DEV="$HOME/dev"
 ### Virtualenv
 export WORKON_HOME=$DEV/.virtualenvs
-export PROJECT_HOME=$DEV/.pythonProjects/Devel
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
@@ -77,7 +76,7 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -93,30 +92,3 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 alias pycharm='nohup charm &> /dev/null &'
 ### CLion
 alias clion='nohup clion &> /dev/null &'
-alias idea='nohup $DEV/idea/bin/idea.sh &> /dev/null &'
-### ROS Environment setup
-# source /opt/ros/indigo/setup.zsh
-# alias ros_image_view='rosrun image_view image_view image:=/camera/rgb/image_color'
-
-#### workspack setup ALWAYS comes after distro setup!
-# source /home/szhou/catkin_ws/devel/setup.zsh
-
-### Powerline
-# . /usr/local/lib/python3.4/dist-packages/powerline/bindings/zsh/powerline.zsh
-
-### Vim
-alias vim-install-plugins='vim +PluginInstall +qall'
-
-### Python
-export PYTHONSTARTUP="$HOME/.pythonrc.py"
-#### virtualenv and virtualenvwrapper
-# export WORKON_HOME=$HOME/.virtualenvs
-# source /usr/local/bin/virtualenvwrapper.sh
-
-### CUDA
-export PATH=/usr/local/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-
-### Qt
-alias qmake4='qmake-qt4'
-export CPPLIBS="$HOME/dev/cpp-qt/src/libs"
