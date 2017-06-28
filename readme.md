@@ -2,7 +2,7 @@
 ## Installation on a new system
 Fisrt do 
 ```bash
-alias dtf = '/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 git clone --bare <git-repo-url> $HOME/.dotfiles
 ```
 
