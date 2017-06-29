@@ -54,7 +54,7 @@ source /usr/local/bin/virtualenvwrapper_lazy.sh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore virtualenv tmux dotfiles)
+plugins=(git gitignore virtualenv tmux dotfiles virtualenvwrapper)
 
 # User configuration
 
@@ -92,3 +92,15 @@ export SSH_KEY_PATH="~/.ssh"
 alias pycharm='nohup charm &> /dev/null &'
 ### CLion
 alias clion='nohup clion &> /dev/null &'
+### iRobot
+##### ROS
+source $DEV/catkin_ws/devel/setup.zsh
+export ROS_PACKAGE_PATH=$DEV/catkin_ws/src:${ROS_PACKAGE_PATH}
+##### brewst
+# Setup Brewst SDK
+export BREWST_SDK_HOME=/opt/irobot/brewst-1.0
+export PATH=${BREWST_SDK_HOME}/bin:$PATH
+export BREWST_HOME=${DEV}/brewst
+export KERNELS_HOME=${DEV}/kernels
+export BR2_DL_DIR=${DEV}/kernels/packages
+alias clc=clear
