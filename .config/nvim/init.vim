@@ -67,6 +67,7 @@ imap ii <Esc>
 filetype plugin on
 filetype indent on
 set number
+color dracula
 set tabstop=4
 " Turn on the WiLd menu
 set wildmenu
