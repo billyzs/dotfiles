@@ -45,6 +45,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$HOME/.zsh_custom
 DEV="$HOME/dev"
+
 ### Virtualenv
 export WORKON_HOME=$DEV/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
@@ -67,7 +68,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
   export EDITOR='nvim'
 fi
@@ -92,3 +93,6 @@ export SSH_KEY_PATH="~/.ssh"
 alias pycharm='nohup charm &> /dev/null &'
 ### CLion
 alias clion='nohup clion &> /dev/null &'
+
+
+source "/home/bzs/.zsh_custom/themes/spaceship.zsh-theme"
