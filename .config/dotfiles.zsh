@@ -16,4 +16,5 @@ function dtf-checkout {
 
 alias dtf-add="dtf add -f"
 compdef _git dtf=git
+compdef _git dtf-add="git add"
 
