@@ -9,6 +9,7 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
 zplug "aperezdc/virtualz"
+
 source $CONFIG_HOME/dotfiles.zsh
 
 if ! zplug check --verbose; then
