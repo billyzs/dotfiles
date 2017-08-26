@@ -1,3 +1,7 @@
+" # installation notes: 
+" cd ~/.config/nvim
+" $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+" $ sh ./installer.sh ./dein
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -17,7 +21,7 @@ if dein#load_state('/home/bzs/.config/nvim/dein')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-jedi')
   call dein#add('zchee/deoplete-clang')
-  call dein#add('dracula/vim')
+  call dein#add('tomasr/molokai')
   call dein#add('w0rp/ale')
   call dein#add('vim-airline/vim-airline')
   call dein#end()
@@ -59,7 +63,7 @@ let g:ale_python_yapf_executable = 'yapf'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:AirlineTheme = 'dracula'
+let g:AirlineTheme = 'molokai'
 
 "Misc ============================================================
 imap ii <Esc>
@@ -67,7 +71,7 @@ imap ii <Esc>
 filetype plugin on
 filetype indent on
 set number
-color dracula
+color molokai
 set tabstop=4
 " Turn on the WiLd menu
 set wildmenu
