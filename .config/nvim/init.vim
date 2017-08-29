@@ -37,10 +37,11 @@ filetype plugin indent on
 
 syntax enable
 
-let g:python3_host_prog = '/home/bzs/dev/.virtualenvs/nvim/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 
 
 "Deoplete ============================================================
+call deoplete#enable()
 
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
