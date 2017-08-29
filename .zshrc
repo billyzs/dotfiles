@@ -1,14 +1,27 @@
 # Imports and env vars
-export DEV=$HOME/dev
+export TERM="xterm-256color"
+export DEV=$HOME/devel
 export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zplug/init.zsh
+export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
+
+if [ -d $ZSH_LOCAL_DIR ]; then
+    for dir in $ZSH_LOCAL_DIR; do 
+        if [ -d $dir ]; then
+            for file in $dir; do
+                source $file
+            done
+        fi
+    done
+fi
+source $ZSH_LOCAL_DIR/irobot-zsh/iRobot.plugin.zsh
 
 # Common Plugins
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
-zplug "aperezdc/virtualz"
+# zplug "aperezdc/virtualz"
 
 source $CONFIG_HOME/dotfiles.zsh
 
