@@ -40,8 +40,8 @@ export WORKON_HOME=$DEV/.virtualenvs
 
 # Completion
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z-_}={A-Za-z_-}'
-
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 # git completion
 fpath=($CONFIG_HOME $fpath)
 
