@@ -37,7 +37,8 @@ zplug load
 
 # Virtualenv
 export WORKON_HOME=$DEV/.virtualenvs                                                                                                           
-
+# Spaceship
+SPACESHIP_KUBECONTEXT_SHOW=false
 # Completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete
