@@ -4,17 +4,8 @@ export DEV=$HOME/devel
 export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
-
-if [ -d $ZSH_LOCAL_DIR ]; then
-    for dir in $ZSH_LOCAL_DIR; do 
-        if [ -d $dir ]; then
-            for file in $dir; do
-                source $file
-            done
-        fi
-    done
-fi
-source $ZSH_LOCAL_DIR/irobot-zsh/iRobot.plugin.zsh
+for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do echo "sourcing $f"; source $f; done;
+# source $ZSH_LOCAL_DIR/irobot-zsh/iRobot.plugin.zsh
 
 
 # Common Plugins
