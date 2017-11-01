@@ -5,17 +5,18 @@ export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do echo "sourcing $f"; source $f; done;
-# source $ZSH_LOCAL_DIR/irobot-zsh/iRobot.plugin.zsh
 
 
 # Common Plugins
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions"
+
+zplug "$ZSH_LOCAL_DIR/dotfiles", from:local
+zplug "zsh-users/zsh-history-substring-search", from:github
+zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
+zplug "zsh-users/zsh-syntax-highlighting", from:github,  defer:2
 # zplug "aperezdc/virtualz"
 
-source $CONFIG_HOME/dotfiles.zsh
+#  source $CONFIG_HOME/dotfiles.zsh
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
