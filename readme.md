@@ -1,4 +1,5 @@
-#Git for dotfile management
+Git for dotfile management
+
 ## Installation on a new system
 Fisrt do 
 ```bash
@@ -14,7 +15,7 @@ xargs -I{} mv {} .dotfiles_backup/{}
 ```
 Finally, run
 ```bash
-dtf checkout
+dtf-checkout
 ```
 
 Optionally, set `showUntrackedFiles` for this repo to no:
@@ -22,3 +23,14 @@ Optionally, set `showUntrackedFiles` for this repo to no:
 ```bash
 dtf config --local status.showUntrackedFiles no
 ```
+
+## Maintenance 
+[zplug](https://github.com/zplug/zplug) and [dein](https://github.com/Shougo/dein.vim) are managed as subtrees of this repo, and are set up as remotes (called zplug and dein respectively). To update, do 
+```bash
+dtf subtree pull -P .config/nvim/repos/dein dein master --squash
+dtf subtree pull -P .config/zplug zplug master --squash
+```
+
+## Required packages
+```
+git vim htop tmux wget curl pip python-neovim python3-neovim 
