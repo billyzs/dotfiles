@@ -8,15 +8,15 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/bzs/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=/home/bzs/.config/nvim/repos/dein
 
 " Required:
-if dein#load_state('/home/bzs/.config/nvim/dein')
-  call dein#begin('/home/bzs/.config/nvim/dein')
+if dein#load_state('/home/bzs/.config/nvim/repos')
+  call dein#begin('/home/bzs/.config/nvim/repos')
 
   " Let dein manage dein
   " Required:
-  call dein#add('/home/bzs/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('/home/bzs/.config/nvim/repos/dein')
 
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-jedi')
