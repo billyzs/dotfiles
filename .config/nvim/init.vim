@@ -67,7 +67,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:AirlineTheme = 'molokai'
 
 "Misc ============================================================
-imap ii <Esc>
+imap jj <Esc>
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
