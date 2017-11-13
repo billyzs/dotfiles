@@ -33,4 +33,4 @@ dtf subtree pull -P .config/zplug zplug master --squash
 
 ## Required packages
 ```
-git vim htop tmux wget curl pip python-neovim python3-neovim 
+git vim htop tmux wget curl pip python-neovim python3-neovim zsh awk
