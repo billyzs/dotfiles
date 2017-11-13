@@ -7,7 +7,7 @@ export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 
 
 # Common Plugins
-for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do zplug $f, from:local; done;
+for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do source $f; done;
 zplug "$ZSH_LOCAL_DIR/dotfiles", from:local
 zplug "zsh-users/zsh-history-substring-search", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
@@ -31,7 +31,7 @@ export WORKON_HOME=$DEV/.virtualenvs
 SPACESHIP_KUBECONTEXT_SHOW=false
 
 # Completion
-zstyle ':completion:*' menu_complete select auto_list
+zstyle ':completion:*' menu select 
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'  # ignore cases
 setopt GLOB_COMPLETE   # wildcard globbing
