@@ -71,7 +71,13 @@ imap jj <Esc>
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
-set number
+" toggle between relative and abs line number
+set number relativenumber
+augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 color molokai
 set tabstop=4
 " Turn on the WiLd menu
