@@ -236,28 +236,15 @@ function! s:clear_runtimepath() abort
     return
   endif
 
-  let parent = printf('%s/temp/%d', dein#util#_get_cache_path(), getpid())
-  let dest = parent . '/' . strftime('%Y%m%d%H%M%S')
-  if !isdirectory(parent)
-    call mkdir(parent, 'p')
-  endif
-  silent! let err = rename(dein#util#_get_runtime_path(), dest)
-  if get(l:, 'err', -1)
-    call dein#util#_error('Rename failed.')
-    call dein#util#_error('src=' . dein#util#_get_runtime_path())
-    call dein#util#_error('dest=' . dest)
-    return
-  endif
+  let runtimepath = dein#util#_get_runtime_path()
 
-  " Create runtime path
-  call mkdir(dein#util#_get_runtime_path(), 'p')
+  " Remove runtime path
+  call dein#install#_rm(runtimepath)
 
-  " Remove previous runtime path
-  for path in filter(dein#util#_globlist(
-        \ dein#util#_get_cache_path().'/temp/*'),
-        \   "fnamemodify(v:val, ':t') !=# getpid()")
-    call dein#install#_rm(path)
-  endfor
+  if !isdirectory(runtimepath)
+    " Create runtime path
+    call mkdir(runtimepath, 'p')
+  endif
 endfunction
 function! s:helptags() abort
   if g:dein#_runtime_path ==# '' || dein#util#_is_sudo()
@@ -647,7 +634,8 @@ function! dein#install#_system(command) abort
   return substitute(output, '\n$', '', '')
 endfunction
 function! dein#install#_status() abort
-  return dein#install#_has_job() ? s:job_system.status : v:shell_error
+  return dein#install#_has_job() ?
+        \ s:job_system.status : v:shell_error
 endfunction
 function! s:system_cd(command, path) abort
   let cwd = getcwd()
@@ -675,7 +663,8 @@ function! s:job_system.system(command) abort
   let s:job_system.status = -1
   let s:job_system.candidates = []
 
-  let job = dein#job#start(a:command, {'on_stdout': self.on_out})
+  let job = dein#job#start(a:command,
+        \ {'on_stdout': self.on_out, 'on_stderr': self.on_out})
 
   call job.wait()
   let s:job_system.status = job.exitval()
@@ -738,16 +727,21 @@ function! dein#install#_rm(path) abort
   "   return
   " endif
 
-  let cmdline = ' "' . a:path . '"'
+  let path = a:path
   if dein#util#_is_windows()
     " Note: In rm command, must use "\" instead of "/".
-    let cmdline = substitute(cmdline, '/', '\\\\', 'g')
+    let path = substitute(a:path, '/', '\\\\', 'g')
   endif
 
-  let rm_command = dein#util#_is_windows() ? 'rmdir /S /Q' : 'rm -rf'
-  let result = dein#install#_system(rm_command . cmdline)
+  let commands = (dein#util#_is_windows() ?
+        \ ['rmdir', '/S',  '/Q'] : ['rm', '-rf']) + [path]
+  let result = dein#install#_system(commands)
   if dein#install#_status()
     call dein#util#_error(result)
+  endif
+  if getftype(a:path) != ''
+    call dein#util#_error(printf('"%s" cannot be removed.', a:path))
+    call dein#util#_error(printf('cmdline is "%s".', cmdline))
   endif
 endfunction
 function! dein#install#_copy_directories(srcs, dest) abort
@@ -1074,14 +1068,13 @@ function! s:job_handler(id, msg, event) abort
   endif
 
   let candidates = s:job_info[a:id].candidates
-  let lines = a:msg
-  if !empty(lines) && lines[0] !=# "\n" && !empty(candidates)
-    " Join to the previous line
-    let candidates[-1] .= lines[0]
-    call remove(lines, 0)
+  if empty(candidates)
+    call add(candidates, a:msg[0])
+  else
+    let candidates[-1] .= a:msg[0]
   endif
 
-  let candidates += lines
+  let candidates += a:msg[1:]
 endfunction
 function! s:check_output(context, process) abort
   if a:context.async
@@ -1156,6 +1149,7 @@ function! s:check_output(context, process) abort
 
     let cwd = getcwd()
     try
+      call dein#install#_cd(plugin.path)
       call dein#call_hook('post_update', plugin)
     finally
       call dein#install#_cd(cwd)
@@ -1182,9 +1176,13 @@ function! s:get_async_result(process) abort
 
   " Check job status
   let status = 0
-  if a:process.job.wait(5) != -1
+  let wait = a:process.job.wait(5)
+  if wait != -1
     let job.eof = 1
     let status = a:process.job.exitval()
+    if status == -1
+      let status = wait
+    endif
   endif
 
   let output = join((job.eof ?
