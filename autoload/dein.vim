@@ -23,7 +23,7 @@ function! dein#_init() abort
   augroup dein
     autocmd FuncUndefined * call dein#autoload#_on_func(expand('<afile>'))
     autocmd BufRead *? call dein#autoload#_on_default_event('BufRead')
-    autocmd BufNewFile *? call dein#autoload#_on_default_event('BufNewFile')
+    autocmd BufNew,BufNewFile *? call dein#autoload#_on_default_event('BufNew')
     autocmd VimEnter *? call dein#autoload#_on_default_event('VimEnter')
     autocmd FileType *? call dein#autoload#_on_default_event('FileType')
     autocmd BufWritePost *.vim,*.toml,vimrc,.vimrc
@@ -59,8 +59,8 @@ function! dein#_json2vim(expr) abort
         \ json_decode(a:expr) : eval(a:expr)
 endfunction
 function! dein#load_state(path, ...) abort
-  if !(a:0 > 0 ? a:1 : has('vim_starting')) | return 1 | endif
-
+  if !(a:0 > 0 ? a:1 : has('vim_starting') &&
+        \ (!exists('&loadplugins') || &loadplugins)) | return 1 | endif
   call dein#_init()
   let g:dein#_base_path = expand(a:path)
 

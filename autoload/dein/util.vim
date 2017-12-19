@@ -409,6 +409,11 @@ function! dein#util#_end() abort
 
   let g:dein#_block_level -= 1
 
+  if !has('vim_starting')
+    call dein#source(filter(values(g:dein#_plugins),
+        \ "!v:val.lazy && !v:val.sourced && v:val.rtp !=# ''"))
+  endif
+
   " Add runtimepath
   let rtps = dein#util#_split_rtp(&runtimepath)
   let index = index(rtps, g:dein#_runtime_path)
@@ -418,6 +423,8 @@ function! dein#util#_end() abort
   endif
 
   let depends = []
+  let sourced = has('vim_starting') &&
+        \ (!exists('&loadplugins') || &loadplugins)
   for plugin in filter(values(g:dein#_plugins),
         \ "!v:val.lazy && !v:val.sourced && v:val.rtp !=# ''")
     " Load dependencies
@@ -432,7 +439,7 @@ function! dein#util#_end() abort
       endif
     endif
 
-    let plugin.sourced = 1
+    let plugin.sourced = sourced
   endfor
   let &runtimepath = dein#util#_join_rtp(rtps, &runtimepath, '')
 
@@ -480,7 +487,9 @@ endfunction
 function! dein#util#_call_hook(hook_name, ...) abort
   let hook = 'hook_' . a:hook_name
   let plugins = filter(dein#util#_get_plugins((a:0 ? a:1 : [])),
-        \ 'v:val.sourced && has_key(v:val, hook) && isdirectory(v:val.path)')
+        \ "((a:hook_name !=# 'source'
+        \    && a:hook_name !=# 'post_source') || v:val.sourced)
+        \   && has_key(v:val, hook) && isdirectory(v:val.path)")
 
   for plugin in filter(dein#util#_tsort(plugins),
         \ 'has_key(v:val, hook)')
