@@ -13,6 +13,7 @@ zplug "zsh-users/zsh-history-substring-search", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
 zplug "zsh-users/zsh-syntax-highlighting", from:github,  defer:2
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # zplug "aperezdc/virtualz"
 
 if ! zplug check --verbose; then
