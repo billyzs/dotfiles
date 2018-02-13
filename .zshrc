@@ -11,7 +11,7 @@ for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do source $f; done;
 zplug "$ZSH_LOCAL_DIR/dotfiles", from:local
 zplug "zsh-users/zsh-history-substring-search", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
-zplug "denysdovhan/spaceship-zsh-theme", use:spaceship.zsh, from:github, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "zsh-users/zsh-syntax-highlighting", from:github,  defer:2
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # zplug "aperezdc/virtualz"
