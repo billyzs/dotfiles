@@ -26,7 +26,9 @@ fi
 zplug load
 
 # Virtualenv
-export WORKON_HOME=$DEV/.virtualenvs                                                                                                           
+export WORKON_HOME=$DEV/.virtualenvs                                                                               export PROJECT_HOME=$DEV
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # Spaceship
 SPACESHIP_KUBECONTEXT_SHOW=false
@@ -47,6 +49,7 @@ else
   export EDITOR='nvim'
 fi
 
+alias ll='ls -hltrBF --group-directories-first --color=auto'
 ### PyCharm
 alias pycharm='nohup charm &> /dev/null &'
 
