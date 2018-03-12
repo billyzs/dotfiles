@@ -1,6 +1,6 @@
 *dein.txt*	Dark powered Vim/Neovim plugin manager
 
-Version: 1.0
+Version: 1.5
 Author:  Shougo <Shougo.Matsu at gmail.com>
 License: MIT license
 
@@ -917,8 +917,8 @@ dein
 		Note:
 		If argument is bang(!), print plugins status.
 
-						*dein-unite-source-dein-log*
-dein/log
+						*dein-unite-source-dein_log*
+dein_log
 		Print previous dein install logs.
 		And you can jump the diff URI in github.
 
@@ -935,6 +935,16 @@ Here let me explain about a source for |denite| provided in dein.
 						*dein-denite-source-dein*
 dein
 		Nominates dein plugins as candidates.
+
+						*dein-denite-source-dein-log*
+dein/log
+		Print previous dein install logs.
+		And you can jump the diff URI in github.
+
+		If argument 1 is "!", the updated logs are displayed.
+
+		Source arguments:
+		1. "!"
 
 ==============================================================================
 EXAMPLES						*dein-examples*
@@ -1123,6 +1133,11 @@ Q: I want to update from shell.
 A: >
 	$ vim -c "try | call dein#update() | finally | qall! | endtry" \
 	-N -u $VIMRC -U NONE -i NONE -V1 -e -s
+
+Q: I want to change the environment variable when build.
+A: >
+	call dein#add('nixprime/cpsm',
+	\ {'build': 'sh -c "PY3=ON ./install.sh"'})
 
 ==============================================================================
 COMPATIBILITY						*dein-compatibility*
