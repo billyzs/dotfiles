@@ -27,6 +27,9 @@ dtf config --local status.showUntrackedFiles no
 ## Maintenance 
 [zplug](https://github.com/zplug/zplug) and [dein](https://github.com/Shougo/dein.vim) are managed as subtrees of this repo, and are set up as remotes (called zplug and dein respectively). To update, do 
 ```bash
+# first add the remotes so we can use short hand
+dtf remote add dein https://github.com/Shougo/dein.vim.git
+dtf remote add zplug https://github.com/zplug/zplug.git
 dtf subtree pull -P .config/nvim/repos/dein dein master --squash
 dtf subtree pull -P .config/zplug zplug master --squash
 ```
