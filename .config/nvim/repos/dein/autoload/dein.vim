@@ -19,6 +19,11 @@ function! dein#_init() abort
   let g:dein#_vimrcs = []
   let g:dein#_block_level = 0
   let g:dein#_event_plugins = {}
+  let g:dein#_is_sudo = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
+        \ && $HOME !=# expand('~'.$USER)
+        \ && $HOME ==# expand('~'.$SUDO_USER)
+  let g:dein#_progname = fnamemodify(v:progname, ':r')
+  let g:dein#_init_runtimepath = &runtimepath
 
   augroup dein
     autocmd FuncUndefined * call dein#autoload#_on_func(expand('<afile>'))
@@ -38,7 +43,7 @@ endfunction
 function! dein#load_cache_raw(vimrcs) abort
   let g:dein#_vimrcs = a:vimrcs
   let cache = get(g:, 'dein#cache_directory', g:dein#_base_path)
-        \ .'/cache_'.fnamemodify(v:progname, ':r')
+        \ .'/cache_' . g:dein#_progname
   let time = getftime(cache)
   if !empty(filter(map(copy(g:dein#_vimrcs),
         \ 'getftime(expand(v:val))'), 'time < v:val'))
@@ -60,12 +65,13 @@ function! dein#_json2vim(expr) abort
 endfunction
 function! dein#load_state(path, ...) abort
   if !(a:0 > 0 ? a:1 : has('vim_starting') &&
-        \ (!exists('&loadplugins') || &loadplugins)) | return 1 | endif
+        \ (!exists('&loadplugins') || &loadplugins || g:dein#_is_sudo))
+        \ | return 1 | endif
   call dein#_init()
   let g:dein#_base_path = expand(a:path)
 
   let state = get(g:, 'dein#cache_directory', g:dein#_base_path)
-        \ .'/state_' .fnamemodify(v:progname, ':r').'.vim'
+        \ . '/state_' . g:dein#_progname . '.vim'
   if !filereadable(state) | return 1 | endif
   try
     execute 'source' fnameescape(state)
