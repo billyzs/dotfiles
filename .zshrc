@@ -4,7 +4,7 @@ export DEV=$HOME/devel
 export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
-
+export TERMINAL=`which kitty` # for i3-sensible-terminal
 
 # Common Plugins
 for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do source $f; done;
@@ -27,8 +27,8 @@ zplug load
 
 # Virtualenv
 export WORKON_HOME=$DEV/.virtualenvs                                                                               export PROJECT_HOME=$DEV
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
 
 # Spaceship
 SPACESHIP_KUBECONTEXT_SHOW=false
