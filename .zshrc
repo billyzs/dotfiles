@@ -1,5 +1,5 @@
 # Imports and env vars
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export DEV=$HOME/devel
 export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zplug/init.zsh
@@ -49,7 +49,7 @@ else
   export EDITOR='nvim'
 fi
 
-alias ll='ls -hltrBF --group-directories-first --color=auto'
+alias ll='ls -ahltrBF --group-directories-first --color=auto'
 ### PyCharm
 alias pycharm='nohup charm &> /dev/null &'
 
