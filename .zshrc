@@ -54,7 +54,7 @@ alias ll='ls -ahltrBF --group-directories-first --color=auto'
 alias pycharm='nohup charm &> /dev/null &'
 
 ### CLion
-alias clion='nohup clion &> /dev/null &'
+alias clion='nohup /usr/local/bin/clion &> /dev/null &'
 
 ### home and end key snafu
 bindkey "${terminfo[khome]}" beginning-of-line
