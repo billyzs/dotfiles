@@ -8,6 +8,14 @@ if &compatible
 endif
 
 " Required:
+filetype plugin indent on
+
+syntax enable
+
+let g:python3_host_prog = '/home/bzs/devel/.virtualenvs/neovim/bin/python3'
+let g:loaded_python_provider = 1 " disable python2 support
+
+" Required:
 set runtimepath+=/home/bzs/.config/nvim/repos/dein
 
 " Required:
@@ -32,29 +40,25 @@ if dein#check_install()
   call dein#install()
 endif
 
-" Required:
-filetype plugin indent on
-
-syntax enable
-
-let g:python3_host_prog = '/usr/bin/python3'
-
 
 "Deoplete ============================================================
-call deoplete#enable()
+let g:deoplete#enable_at_startup = 1
+" set sources
+" let g:deoplete#sources = {}
+" let g:deoplete#sources.cpp = ['LanguageClient']
+" deoplete-clang
+let g:deoplete#sources#clang#flags = ['-pthread', '-Wall']
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
+" let g:deoplete#sources#clang#executable = '/usr/bin/clang'
 
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " use tab to backward cycle
 inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-let g:deoplete#enable_at_startup = 1
 autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 autocmd CompleteDone * pclose " To close preview window of deoplete
-
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
-let g:deoplete#sources#clang#std = {'c': 'c11', 'cpp': 'c++1z', 'objc': 'c11', 'objcpp': 'c++1z'}
 
 "ale
 let g:ale_virtualenv_dir_names = ['/home/bzs/dev/.virtualenvs/nvim']
