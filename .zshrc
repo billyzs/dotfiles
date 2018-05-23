@@ -26,9 +26,9 @@ fi
 zplug load
 
 # Virtualenv
-export WORKON_HOME=$DEV/.virtualenvs                                                                               export PROJECT_HOME=$DEV
-export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
-source /usr/bin/virtualenvwrapper_lazy.sh
+export WORKON_HOME=$DEV/.virtualenvs
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # Spaceship
 SPACESHIP_KUBECONTEXT_SHOW=false
