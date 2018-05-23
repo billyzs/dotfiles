@@ -57,5 +57,5 @@ alias pycharm='nohup charm &> /dev/null &'
 alias clion='nohup /usr/local/bin/clion &> /dev/null &'
 
 ### home and end key snafu
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
+# bindkey "${terminfo[khome]}" beginning-of-line
+# bindkey "${terminfo[kend]}" end-of-line
