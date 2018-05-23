@@ -55,9 +55,12 @@ function! dein#install#_update(plugins, update_type, async) abort
   call s:init_variables(context)
 
   if empty(plugins)
-    call s:notify('Target plugins are not found.')
-    call s:notify('You may have used the wrong plugin name,'.
-          \ ' or all of the plugins are already installed.')
+    if a:update_type !=# 'check_update'
+      call s:notify('Target plugins are not found.')
+      call s:notify('You may have used the wrong plugin name,'.
+            \ ' or all of the plugins are already installed.')
+    endif
+    let s:global_context = {}
     return
   endif
 
@@ -76,11 +79,8 @@ function! dein#install#_update(plugins, update_type, async) abort
     unlet s:timer
   endif
 
-  function! s:timer_handler(timer) abort
-    call dein#install#_polling()
-  endfunction
   let s:timer = timer_start(1000,
-        \ function('s:timer_handler'), {'repeat': -1})
+        \ {-> dein#install#_polling()}, {'repeat': -1})
 endfunction
 function! s:update_loop(context) abort
   let errored = 0
@@ -159,7 +159,7 @@ function! dein#install#_rollback(date, plugins) abort
     return
   endif
 
-  let revisions = dein#_json2vim(readfile(rollbacks[0])[0])
+  let revisions = json_decode(readfile(rollbacks[0])[0])
 
   call filter(plugins, "has_key(revisions, v:val.name)
         \ && has_key(dein#util#_get_type(v:val.type),
@@ -311,7 +311,7 @@ function! s:save_rollback() abort
   endfor
 
   let dest = s:get_rollback_directory() . '/' . strftime('%Y%m%d%H%M%S')
-  call writefile([dein#_vim2json(revisions)], dest)
+  call writefile([json_encode(revisions)], dest)
 endfunction
 function! s:get_rollback_directory() abort
   let parent = printf('%s/rollbacks/%s',
@@ -398,12 +398,7 @@ function! s:generate_ftplugin() abort
 endfunction
 
 function! dein#install#_is_async() abort
-  return (has('timers') && g:dein#install_max_processes > 1) ?
-        \ dein#install#_has_job() : 0
-endfunction
-function! dein#install#_has_job() abort
-  return (has('nvim') && exists('v:t_list'))
-        \ || (has('patch-8.0.0027') && has('job'))
+  return g:dein#install_max_processes > 1
 endfunction
 
 function! dein#install#_polling() abort
@@ -585,7 +580,7 @@ function! s:lock_revision(process, context) abort
   if empty(cmd) || plugin.new_rev ==# get(plugin, 'rev', '')
     " Skipped.
     return 0
-  elseif type(cmd) == type('') && cmd =~# '^E: '
+  elseif type(cmd) == v:t_string && cmd =~# '^E: '
     " Errored.
     call s:error(plugin.path)
     call s:error(cmd[3:])
@@ -659,7 +654,7 @@ function! dein#install#_system(command) abort
   " let job = s:Job.start()
   " let exitval = job.wait()
 
-  if !has('nvim') && type(a:command) == type([])
+  if !has('nvim') && type(a:command) == v:t_list
     " system() does not support List arguments in Vim.
     let command = s:args2string(a:command)
   else
@@ -685,18 +680,7 @@ function! s:system_cd(command, path) abort
 endfunction
 
 function! dein#install#_execute(command) abort
-  let error = 0
-  if dein#install#_has_job()
-    let error = s:job_execute.execute(a:command)
-  else
-    execute '!' . s:args2string(a:command)
-    if !v:shell_error
-      redraw
-    endif
-    let error = v:shell_error
-  endif
-
-  return error
+  return s:job_execute.execute(a:command)
 endfunction
 let s:job_execute = {}
 function! s:job_execute.on_out(data) abort
@@ -762,6 +746,7 @@ function! dein#install#_rm(path) abort
     call dein#util#_error(printf('cmdline is "%s".', cmdline))
   endif
 endfunction
+
 function! dein#install#_copy_directories(srcs, dest) abort
   if empty(a:srcs)
     return 0
@@ -769,36 +754,40 @@ function! dein#install#_copy_directories(srcs, dest) abort
 
   let status = 0
   if dein#util#_is_windows()
+    if !executable('robocopy')
+      call dein#util#_error('robocopy command is needed.')
+      return 1
+    endif
+
     let temp = tempname() . '.bat'
     let exclude = tempname()
-    try
-      call writefile(['.git', '.svn'], exclude)
 
-      " Create temporary batch file
+    try
       let lines = ['@echo off']
+      let format ='robocopy %s /E /NJH /NJS /NDL /NC /NS /MT /XO /XD ".git"'
       for src in a:srcs
-        " Note: In xcopy command, must use "\" instead of "/".
-        call add(lines, printf('xcopy /EXCLUDE:%s %s /E /H /I /R /Y /Q',
-              \   substitute(exclude, '/', '\\', 'g'),
-              \   substitute(printf(' "%s/"* "%s"', src, a:dest),
-              \              '/', '\\', 'g')))
+        call add(lines, printf(format,
+              \                substitute(printf('"%s" "%s"', src, a:dest),
+              \                           '/', '\\', 'g')))
       endfor
       call writefile(lines, temp)
-
-      " Note: "xcopy" is slow in Vim8 job.
       let result = dein#install#_system(temp)
     finally
       call delete(temp)
-      call delete(exclude)
     endtry
+
+    " For some baffling reason robocopy almost always returns between 1 and 3
+    " upon success
     let status = dein#install#_status()
+    let status = (status > 3) ? status : 0
+
     if status
       call dein#util#_error('copy command failed.')
       call dein#util#_error(s:iconv(result, 'char', &encoding))
       call dein#util#_error('cmdline: ' . temp)
       call dein#util#_error('tempfile: ' . string(lines))
     endif
-  else
+  else " Not Windows
     let srcs = map(filter(copy(a:srcs),
           \ 'len(s:list_directory(v:val))'), 'shellescape(v:val . ''/'')')
     let is_rsync = executable('rsync')
@@ -985,7 +974,7 @@ function! s:sync(plugin, context) abort
     return
   endif
 
-  if type(cmd) == type('') && cmd =~# '^E: '
+  if type(cmd) == v:t_string && cmd =~# '^E: '
     " Errored.
 
     call s:print_progress_message(s:get_plugin_message(
@@ -1226,7 +1215,7 @@ function! s:iconv(expr, from, to) abort
     return a:expr
   endif
 
-  if type(a:expr) == type([])
+  if type(a:expr) == v:t_list
     return map(copy(a:expr), 'iconv(v:val, a:from, a:to)')
   else
     let result = iconv(a:expr, a:from, a:to)
@@ -1410,7 +1399,7 @@ function! s:strwidthpart_reverse(str, width) abort
 endfunction
 
 function! s:args2string(args) abort
-  return type(a:args) == type('') ? a:args :
+  return type(a:args) == v:t_string ? a:args :
         \ dein#util#_is_windows() ?
         \   dein#install#_args2string_windows(a:args) :
         \   dein#install#_args2string_unix(a:args)
