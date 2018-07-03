@@ -9,7 +9,7 @@ endif
 
 " Required:
 filetype plugin indent on
-
+autocmd filetype crontab setlocal nobackup nowritebackup
 syntax enable
 
 let g:python3_host_prog = '/home/bzs/devel/.virtualenvs/neovim/bin/python3'
@@ -29,6 +29,7 @@ if dein#load_state('/home/bzs/.config/nvim/repos')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-jedi')
   call dein#add('zchee/deoplete-clang')
+  call dein#add('landaire/deoplete-d')
   call dein#add('tomasr/molokai')
   call dein#add('w0rp/ale')
   call dein#add('vim-airline/vim-airline')
@@ -46,12 +47,25 @@ let g:deoplete#enable_at_startup = 1
 " set sources
 " let g:deoplete#sources = {}
 " let g:deoplete#sources.cpp = ['LanguageClient']
+
+set completeopt+=noinsert
+
+let g:deoplete#enable_smart_case = 1
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+
 " deoplete-clang
 let g:deoplete#sources#clang#flags = ['-pthread', '-Wall']
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
 " let g:deoplete#sources#clang#executable = '/usr/bin/clang'
 
+" deoplete-d
+let g:deoplete#sources#d#dcd_client_binary = '/usr/local/bin/dcd-client'
+let g:deoplete#sources#d#dcd_server_binary = '/usr/local/bin/dcd-server'
+let g:deoplete#sources#d#dcd_server_autostart = 1
+" ====================================================================
 " use tab to forward cycle
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " use tab to backward cycle
