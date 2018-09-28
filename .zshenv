@@ -17,3 +17,8 @@ else
   export EDITOR='nvim'
 fi
 
+# aliases
+alias ll='ls -ahltrBF --group-directories-first --color=auto --block-size=MB'
+alias clc=clear
+alias quit=exit
+

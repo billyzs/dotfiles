@@ -84,6 +84,9 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:AirlineTheme = 'molokai'
 
+"Clipboard============================================================
+set clipboard:unnamedplus
+
 "Misc ============================================================
 imap jj <Esc>
 " Enable filetype plugins
