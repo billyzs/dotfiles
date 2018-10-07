@@ -17,6 +17,7 @@ else
   export EDITOR='nvim'
 fi
 
+source $CONFIG_HOME/zshtheme
 # aliases
 alias ll='ls -ahltrBF --group-directories-first --color=auto --block-size=MB'
 alias clc=clear
