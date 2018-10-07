@@ -22,7 +22,7 @@ zplug load
 setopt autocd auto_remove_slash
 setopt chase_links correct
 setopt extendedglob glob_complete # wildcard globbing
-setopt nomatch notify print_exit_value 
+setopt nomatch notify
 unsetopt beep bg_nice clobber hist_beep list_beep rm_star_silent
 print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 
