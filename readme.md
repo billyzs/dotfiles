@@ -36,3 +36,7 @@ dtf subtree pull -P .config/zplug zplug master --squash
 ```
 aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper
 ```
+
+## Arch/Manjaro setup notes
+### Brightness Fn key not working
+* add `acpi_osi= ` to kernel params [source](https://www.reddit.com/r/thinkpad/comments/5whn9v/thinkpad_p50_arch_linux_brightness_issue/)
