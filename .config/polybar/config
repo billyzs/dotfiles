@@ -55,9 +55,12 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
-modules-left = bspwm i3
-modules-center = 
-modules-right = filesystem xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-left = i3
+
+; not working :(
+modules-center = powermenu
+; filesystem 
+modules-right = xbacklight alsa xkeyboard memory cpu wlan eth battery temperature date 
 
 tray-position = right
 tray-padding = 2
@@ -78,9 +81,9 @@ tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
+;[module/xwindow]
+;type = internal/xwindow
+;label = %title:0:30:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -98,15 +101,15 @@ label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
 
-[module/filesystem]
-type = internal/fs
-interval = 25
+;[module/filesystem]
+;type = internal/fs
+;interval = 25
 
-mount-0 = /
+;mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+;label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+;label-unmounted = %mountpoint% not mounted
+;label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/bspwm]
 type = internal/bspwm
@@ -199,9 +202,10 @@ bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
 [module/backlight-acpi]
+; not working!
 inherit = module/xbacklight
 type = internal/backlight
-card = intel_backlight
+card = nv_backlight
 
 [module/cpu]
 type = internal/cpu
@@ -417,7 +421,7 @@ screenchange-reload = true
 ;compositing-border = over
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini
