@@ -4,7 +4,7 @@ Git for dotfile management
 Fisrt do 
 ```bash
 alias dtf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-git clone --bare <git-repo-url> $HOME/.dotfiles
+git clone --bare https://github.com/billyzs/dotfiles.git $HOME/.dotfiles
 ```
 
 Then, remove and backup existing doftiles with
@@ -15,11 +15,9 @@ xargs -I{} mv {} .dotfiles_backup/{}
 ```
 Finally, run
 ```bash
-dtf-checkout
+dtf checkout
 ```
-
 Optionally, set `showUntrackedFiles` for this repo to no:
-
 ```bash
 dtf config --local status.showUntrackedFiles no
 ```
@@ -34,6 +32,7 @@ dtf subtree pull -P .config/nvim/repos/dein dein master --squash
 dtf subtree pull -P .config/zplug zplug master --squash
 ```
 
-## Required packages
+## Frequently used packages
 ```
-git vim htop tmux wget curl pip python-neovim python3-neovim zsh awk
+aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper
+```
