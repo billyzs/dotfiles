@@ -1,0 +1,6 @@
+#!/bin/zsh
+# check that we've built the pybrad shared lib, so we can import it in python scripts
+PYBRAD_BIN=`find -L $BREWST/result/debug/python -type f -name "brad.so"`;
+[[ -z "$PYBRAD_BIN" ]] && echo "pybrad not found; build it with scons -j12 cbrad pybrad";
+export PYTHONPATH=$BREWST/result/debug/:$PYTHONPATH
+
