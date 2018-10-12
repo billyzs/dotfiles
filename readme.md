@@ -23,6 +23,8 @@ dtf config --local status.showUntrackedFiles no
 ```
 
 ## Maintenance 
+### user name
+user shal always be called `bzs`
 ### Subtrees
 * [zplug](https://github.com/zplug/zplug)
 * [dein](https://github.com/Shougo/dein.vim) 
