@@ -54,6 +54,11 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
+# Volume controls
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer set Master 5%- unmute; notify-send 'volume down'"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer set Master 5%+ unmute; notify-send 'volume up'"
+bindsym XF86AudioMute exec "amixer -q set Master toggle; notify-send 'speaker (un)muted'"
+bindsym XF86AudioMicMute exec "amixer set Capture toggle; notify-send 'mic (un)muted'"
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec palemoon
