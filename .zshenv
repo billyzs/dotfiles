@@ -4,6 +4,7 @@ export CONFIG_HOME=$HOME/.config
 source $CONFIG_HOME/zshtheme
 source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
+export PATH=$ZSH_LOCAL_DIR/bin:$PATH
 [[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
 
 # Virtualenv

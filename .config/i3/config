@@ -331,8 +331,8 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# Start polybar to display a workspace bar (plus the system information if available)
+exec_always --no-startup-id $HOME/.config/zsh_local/bin/launch-polybar.sh
 #bar {
 	# i3bar_command polybar example 
 	# status_command i3status
