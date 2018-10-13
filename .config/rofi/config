@@ -1,3 +1,6 @@
-rofi.combi-modi: window,drun,ssh
-rofi.theme:      solarized
-rofi.modi:       combi
+rofi.terminal:   kitty
+rofi.theme:      ~/.config/rofi/android_notification.rasi
+rofi.font:       FuraCode Nerd Font 12
+rofi.show-icons: true
+rofi.drun-icon-theme: Papirus-Adapta-Nokto-Maia
+rofi.hide-scrollbar: true
