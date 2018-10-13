@@ -152,9 +152,9 @@ bindsym $mod+Ctrl+Left workspace prev
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1:
-set $ws2 2:
-set $ws3 3:
+set $ws1 1
+set $ws2 2
+set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
@@ -192,8 +192,8 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Open applications on specific workspaces
-# assign [class="Thunderbird"] $ws1
-# assign [class="Pale moon"] $ws2
+#assign [class="Firefox"] $ws1
+#assign [class="kitty"] $ws2
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
 
@@ -297,6 +297,8 @@ exec --no-startup-id start_conky_maia
 exec --no-startup-id xautolock -time 30 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+
+exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox; workspace 2; exec kitty tmux' 
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
