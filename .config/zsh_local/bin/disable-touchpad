@@ -1,0 +1,10 @@
+#!/bin/sh -
+
+set -Eeo pipefail 
+# export TOUCHPAD=11
+# id is the number between the equal sign & tab char
+TOUCHPAD=`xinput list | grep "Synaptic" | awk -F'[=|\t]' '{print $3}'`
+if [ $TOUCHPAD ]; then 
+    xinput disable $TOUCHPAD ; notify-send -a 'touchpad-indicator' "touchpad disabled"
+fi
+
