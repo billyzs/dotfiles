@@ -42,7 +42,7 @@ dtf subtree pull -P .config/tpm tpm master --squash
 
 ## Frequently used packages
 ```
-aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar
+aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar openssh sshpass
 fcitx-{im,googlepinyin,cloudpinyin,configtool}
 ```
 
