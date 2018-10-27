@@ -24,7 +24,7 @@ dtf config --local status.showUntrackedFiles no
 
 ## Maintenance 
 ### user name
-user shal always be called `bzs`
+user shall always be called `bzs`
 ### Subtrees
 * [zplug](https://github.com/zplug/zplug)
 * [dein](https://github.com/Shougo/dein.vim) 
@@ -42,7 +42,7 @@ dtf subtree pull -P .config/tpm tpm master --squash
 
 ## Frequently used packages
 ```
-aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar openssh sshpass
+aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar openssh sshpass yad gsimplecal
 fcitx-{im,googlepinyin,cloudpinyin,configtool}
 ```
 
