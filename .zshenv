@@ -24,3 +24,7 @@ alias ll='ls -ahltrBF --group-directories-first --color=auto --block-size=MB'
 alias clc=clear
 alias quit=exit
 
+# theme
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0" 
+export BROWSER=/usr/bin/firefox
