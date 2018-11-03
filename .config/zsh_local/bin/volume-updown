@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -Eeo pipefail 
+DIR=$1
+[[ -z $DIR ]] && DIR="-"
+VOL=`amixer | grep "Left: Playback" | awk -F'[][]' '{print $2}' | sed s/%//g`
+ICON="volume-level-muted"
+if [ $VOL > 66 ]; then
+    ICON="volume-level-high"
+elif [ $VOL > 33 ]; then
+    ICON="volume-level-medium"
+else
+    ICON="volume-level-low"
+fi
+
+amixer -q set Master 5%${DIR} unmute ; notify-send -i ${ICON} "volume ${VOL}%"

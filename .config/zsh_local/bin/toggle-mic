@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+set -Eeo pipefail 
+ONOFF=`amixer | grep "Left: Capture" | awk -vRS="]" -vFS="[" '{print $2}' | grep -e \[a-z\]` 
+ICON="mic-volume-muted"
+if [ $ONOFF == "off" ]; then 
+    ONOFF='on'
+    ICON="mic-volume-high"
+else
+    ONOFF="off";
+fi
+
+amixer -q set Capture toggle; notify-send -i ${ICON} "mic ${ONOFF}"

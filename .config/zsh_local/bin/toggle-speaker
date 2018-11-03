@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+set -Eeo pipefail 
+ONOFF=`amixer | grep "Left: Playback" | awk -vRS="]" -vFS="[" '{print $2}' | grep -e \[a-z\]` 
+ICON="volume-level-muted"
+if [ $ONOFF == "off" ]; then 
+    ONOFF='on'
+    VOL=`amixer | grep "Left: Playback" | awk -F'[][]' '{print $2}' | sed s/%//g`
+    if [ $VOL > 66 ]; then
+        ICON="volume-level-high"
+    elif [ $VOL > 33 ]; then
+        ICON="volume-level-medium"
+    else
+        ICON="volume-level-low"
+    fi
+else
+    ONOFF="off";
+fi
+
+amixer -q set Master toggle; notify-send -i ${ICON} "speaker ${ONOFF}"
