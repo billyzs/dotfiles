@@ -43,7 +43,7 @@ dtf subtree pull -P .config/tpm tpm master --squash
 ## Frequently used packages
 ```
 aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar openssh sshpass yad gsimplecal
-fcitx-{im,googlepinyin,cloudpinyin,configtool} xarchiver
+fcitx-{im,googlepinyin,cloudpinyin,configtool} xarchiver numlockx
 ```
 
 ## Arch/Manjaro setup notes

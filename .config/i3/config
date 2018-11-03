@@ -283,6 +283,7 @@ mode "resize" {
 bindsym $mod+Ctrl+l exec --no-startup-id blurlock
 
 # Autostart applications
+exec --no-startup-id numlockx on
 exec_always --no-startup-id $HOME/.config/zsh_local/bin/disable-touchpad
 exec --no-startup-id redshift &
 exec --no-startup-id fcitx &
