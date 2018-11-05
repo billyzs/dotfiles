@@ -41,11 +41,22 @@ dtf subtree pull -P .config/tpm tpm master --squash
 ```
 
 ## Frequently used packages
+NOT from AUR
 ```
-aria2 git kitty htop neovim most nmap tmux python3-neovim zsh python-virtualenv python-virtualenvwrapper redshift polybar openssh sshpass yad gsimplecal
-fcitx-{im,googlepinyin,cloudpinyin,configtool} xarchiver numlockx
+aria2 git kitty htop neovim most nmap tmux python-neovim zsh python-virtualenv python-virtualenvwrapper redshift openssh sshpass yad gsimplecal fcitx{,-googlepinyin,-cloudpinyin,-configtool} xarchiver numlockx xclip
+```
+from AUR:
+```
+jsoncpp libmpd libmpdclient polybar
 ```
 
 ## Arch/Manjaro setup notes
 ### Brightness Fn key not working
-* add `acpi_osi= ` to kernel params [source](https://www.reddit.com/r/thinkpad/comments/5whn9v/thinkpad_p50_arch_linux_brightness_issue/)
+* add `acpi_osi= ` to kernel params [source](https://www.reddit.com/r/thinkpad/comments/5whn9v/thinkpad_p50_arch_linux_brightness_issue/) (might not be necessary after kernel 4.18.16)
+### change makepkg make flag
+* uncommentd the line about MAKEFLAGS in `/etc/makepkg.conf`& set to sensible number
+### enable docker
+* `systemctl enable --now docker && sudo reboot`
+### user @ group 
+* `sudo groupadd docker && sudo groupadd dialout && sudo groupadd plugdev`
+* `visudo` and uncomment the line that allows WHEELS to execute sudo without password
