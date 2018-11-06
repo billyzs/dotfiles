@@ -9,8 +9,7 @@ git clone --bare https://github.com/billyzs/dotfiles.git $HOME/.dotfiles
 
 Then, remove and backup existing doftiles with
 ```bash
-mkdir -p .dotfiles_backup && \
-dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
+mkdir -p .dotfiles_backup && dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
 xargs -I{} mv {} .dotfiles_backup/{}
 ```
 Finally, run
@@ -54,9 +53,10 @@ jsoncpp libmpd libmpdclient polybar
 ### Brightness Fn key not working
 * add `acpi_osi= ` to kernel params [source](https://www.reddit.com/r/thinkpad/comments/5whn9v/thinkpad_p50_arch_linux_brightness_issue/) (might not be necessary after kernel 4.18.16)
 ### change makepkg make flag
-* uncommentd the line about MAKEFLAGS in `/etc/makepkg.conf`& set to sensible number
+* uncommentd the line about `MAKEFLAGS` in `/etc/makepkg.conf`& set to sensible number
+### user & group 
+* `sudo groupadd docker && sudo groupadd dialout && sudo groupadd plugdev`
+* `visudo` and uncomment the line that allows WHEEL to execute sudo without password
+* `sudo usermod -g docker bzs sudo usermod -g dialout bzs && sudo usermod -g plugdev bzs`
 ### enable docker
 * `systemctl enable --now docker && sudo reboot`
-### user @ group 
-* `sudo groupadd docker && sudo groupadd dialout && sudo groupadd plugdev`
-* `visudo` and uncomment the line that allows WHEELS to execute sudo without password
