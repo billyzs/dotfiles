@@ -60,3 +60,5 @@ jsoncpp libmpd libmpdclient polybar
 * `sudo usermod -g docker bzs sudo usermod -g dialout bzs && sudo usermod -g plugdev bzs`
 ### enable docker
 * `systemctl enable --now docker && sudo reboot`
+### redshift
+* `systemctl --user enable --now geoclue-agent redshift`
