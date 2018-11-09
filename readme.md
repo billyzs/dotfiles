@@ -62,3 +62,6 @@ jsoncpp libmpd libmpdclient polybar
 * `systemctl enable --now docker && sudo reboot`
 ### redshift
 * `systemctl --user enable --now geoclue-agent redshift`
+### [screen tearing with Nvidia cards](https://wiki.archlinux.org/index.php/NVIDIA/Troubleshooting#Avoid_screen_tearing)
+* in `nvidia-settings` -> X Server Display Configuration,set either _Force Composition Pipeline_ or _Force Full Composition Pipeline_ to true
+* `sudo ln -s -T ~/.config/20-nvidia.conf /etc/x11/xorg.conf.d/20-nvidia.conf`
