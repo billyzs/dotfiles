@@ -102,17 +102,6 @@ function! dein#util#_notify(msg) abort
     endif
   elseif dein#util#_is_mac()
     let cmd = ''
-    if exists('$TMUX')
-      if !executable('reattach-to-user-namespace')
-        call dein#util#_error(
-              \ 'Please install "reattach-to-user-namespace" command'
-              \ . 'to use notification in tmux.')
-        return
-      endif
-
-      " Use reattach-to-user-namespace in tmux
-      let cmd .= 'reattach-to-user-namespace '
-    endif
     if executable('terminal-notifier')
       let cmd .= 'terminal-notifier -title '
             \ . string(title) . ' -message ' . string(a:msg)
@@ -173,8 +162,10 @@ endfunction
 function! dein#util#_check_clean() abort
   let plugins_directories = map(values(dein#get()), 'v:val.path')
   return filter(split(globpath(dein#util#_get_base_path(),
-        \ 'repos/*/*/*'), "\n"), "isdirectory(v:val)
-        \   && index(plugins_directories, v:val) < 0")
+        \ 'repos/*/*/*'), "\n"),
+        \ "isdirectory(v:val)
+        \  && fnamemodify(v:val, ':t') !=# 'dein.vim'
+        \  && index(plugins_directories, v:val) < 0")
 endfunction
 
 function! dein#util#_writefile(path, list) abort
@@ -607,7 +598,8 @@ function! dein#util#_redir(cmd) abort
 endfunction
 
 function! dein#util#_get_lazy_plugins() abort
-  return filter(values(g:dein#_plugins), '!v:val.sourced')
+  return filter(values(g:dein#_plugins),
+        \ "!v:val.sourced && v:val.rtp !=# ''")
 endfunction
 
 function! dein#util#_get_plugins(plugins) abort

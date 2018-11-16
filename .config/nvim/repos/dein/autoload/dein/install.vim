@@ -183,7 +183,6 @@ endfunction
 
 function! dein#install#_recache_runtimepath() abort
   if g:dein#_is_sudo
-    call s:error('recache_runtimepath() is disabled in sudo session.')
     return
   endif
 
@@ -233,8 +232,6 @@ function! dein#install#_recache_runtimepath() abort
   call dein#clear_state()
 
   call s:log([strftime('Runtimepath updated: (%Y/%m/%d %H:%M:%S)')])
-
-  call dein#call_hook('done_update')
 endfunction
 function! s:clear_runtimepath() abort
   if dein#util#_get_cache_path() ==# ''
@@ -352,8 +349,8 @@ function! dein#install#_get_default_ftplugin() abort
         \ '    endif',
         \ '    for ft in split(filetype, ''\.'')',
         \ '      execute "runtime! ftplugin/" . ft . ".vim"',
-        \ '      execute "runtime! ftplugin/" . ft . "_*.vim"',
-        \ '      execute "runtime! ftplugin/" . ft . "/*.vim"',
+        \ '      \ "ftplugin/" . ft . "_*.vim"',
+        \ '      \ "ftplugin/" . ft . "/*.vim"',
         \ '    endfor',
         \ '  endif',
         \ '  call s:after_ftplugin()',
@@ -392,7 +389,7 @@ function! s:generate_ftplugin() abort
         \ dein#util#_get_runtime_path() . '/ftplugin.vim')
 
   " Generate after/ftplugin
-  for [filetype, list] in items(ftplugin)
+  for [filetype, list] in filter(items(ftplugin), "v:val[0] !=# '_'")
     call writefile(list, printf('%s/%s.vim', after, filetype))
   endfor
 endfunction
@@ -402,7 +399,17 @@ function! dein#install#_is_async() abort
 endfunction
 
 function! dein#install#_polling() abort
-  return s:install_async(s:global_context)
+  if exists('+guioptions')
+    " Note: guioptions-! does not work in async state
+    let save_guioptions = &guioptions
+    set guioptions-=!
+  endif
+
+  call s:install_async(s:global_context)
+
+  if exists('+guioptions')
+    let &guioptions = save_guioptions
+  endif
 endfunction
 
 function! dein#install#_remote_plugins() abort
@@ -444,7 +451,7 @@ function! dein#install#_each(cmd, plugins) abort
       endif
     endfor
   catch
-    call s:nonskip_error(v:exception . ' ' . v:throwpoint)
+    call s:error(v:exception . ' ' . v:throwpoint)
     return 1
   finally
     let s:global_context = global_context_save
@@ -479,8 +486,11 @@ function! dein#install#_get_progress() abort
 endfunction
 
 function! s:get_progress_message(plugin, number, max) abort
-  return printf('(%'.len(a:max).'d/%d) [%-20s] %s',
-        \ a:number, a:max, repeat('=', (a:number*20/a:max)), a:plugin.name)
+  return printf('(%'.len(a:max).'d/%'.len(a:max).'d) [%s%s] %s',
+        \ a:number, a:max,
+        \ repeat('+', (a:number*20/a:max)),
+        \ repeat('-', 20 - (a:number*20/a:max)),
+        \ a:plugin.name)
 endfunction
 function! s:get_plugin_message(plugin, number, max, message) abort
   return printf('(%'.len(a:max).'d/%d) |%-20s| %s',
@@ -936,6 +946,10 @@ function! s:done(context) abort
   if a:context.update_type !=# 'check_update'
     call dein#install#_recache_runtimepath()
   endif
+
+  call dein#call_hook('post_update', a:context.synced_plugins)
+  call dein#call_hook('done_update', a:context.synced_plugins)
+
   call s:notify(strftime('Done: (%Y/%m/%d %H:%M:%S)'))
 
   " Disable installation handler
@@ -958,8 +972,7 @@ function! s:sync(plugin, context) abort
 
   if isdirectory(a:plugin.path) && get(a:plugin, 'frozen', 0)
     " Skip frozen plugin
-    call s:updates_log(s:get_plugin_message(
-          \ a:plugin, num, max, 'is frozen.'))
+    call s:log(s:get_plugin_message(a:plugin, num, max, 'is frozen.'))
     return
   endif
 
@@ -969,8 +982,7 @@ function! s:sync(plugin, context) abort
 
   if empty(cmd)
     " Skip
-    call s:updates_log(
-          \ s:get_plugin_message(a:plugin, num, max, message))
+    call s:log(s:get_plugin_message(a:plugin, num, max, message))
     return
   endif
 
@@ -1115,7 +1127,7 @@ function! s:init_job(process, context, cmd) abort
         \   'on_stderr': a:process.async.job_handler,
         \   'on_exit': a:process.async.on_exit,
         \ })
-  let a:process.id = a:process.job.id()
+  let a:process.id = a:process.job.pid()
   let a:process.job.candidates = []
 endfunction
 function! s:check_output(context, process) abort
@@ -1189,14 +1201,6 @@ function! s:check_output(context, process) abort
     let plugin.uri = has_key(type, 'get_uri') ?
           \ type.get_uri(plugin.repo, plugin) : ''
 
-    let cwd = getcwd()
-    try
-      call dein#install#_cd(plugin.path)
-      call dein#call_hook('post_update', plugin)
-    finally
-      call dein#install#_cd(cwd)
-    endtry
-
     if dein#install#_build([plugin.name])
       call s:log(s:get_plugin_message(plugin, num, max, 'Build failed'))
       call s:error(plugin.path)
@@ -1251,16 +1255,6 @@ function! s:error(msg) abort
   endif
 
   call s:echo(msg, 'error')
-
-  call s:updates_log(msg)
-endfunction
-function! s:nonskip_error(msg) abort
-  let msg = dein#util#_convert2list(a:msg)
-  if empty(msg)
-    return
-  endif
-
-  call s:echo_mode(join(msg, "\n"), 'error')
 
   call s:updates_log(msg)
 endfunction

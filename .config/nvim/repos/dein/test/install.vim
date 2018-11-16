@@ -69,7 +69,6 @@ function! s:suite.tap() abort
 endfunction
 
 function! s:suite.reinstall() abort
-  let g:dein#install_progress_type = 'statusline'
   let g:dein#install_progress_type = 'none'
 
   call dein#begin(s:path)
@@ -765,4 +764,6 @@ function! s:suite.ftplugin() abort
   let python = readfile(dein#util#_get_runtime_path()
         \ . '/after/ftplugin/python.vim')
   call s:assert.equals(python[-1], g:dein#_ftplugin['python'])
+  call s:assert.false(filereadable(dein#util#_get_runtime_path()
+        \ . '/after/ftplugin/_.vim'))
 endfunction
