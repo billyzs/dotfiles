@@ -56,10 +56,10 @@ font-0 = "FuraCode Nerd Font:pixelsize=12:antialias=true;1"
 ; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 ; font-2 = siji:pixelsize=10;1
 
-modules-left = i3
+modules-left = 
 
 ; not working :(
-modules-center = 
+modules-center = i3
 ;filesystem xkeyboard wlan 
 modules-right = xbacklight alsa memory cpu eth battery temperature popup-calendar powermenu
 
