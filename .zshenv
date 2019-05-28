@@ -6,11 +6,7 @@ source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 export PATH=$ZSH_LOCAL_DIR/bin:$PATH
 [[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
-
-# Virtualenv
-export WORKON_HOME=$DEV/.virtualenvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
-source /usr/bin/virtualenvwrapper_lazy.sh
+# export MANPAGER=most
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -28,3 +24,27 @@ alias quit=exit
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0" 
 export BROWSER=/usr/bin/firefox
+
+# Colors
+default=$(tput sgr0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+purple=$(tput setaf 5)
+orange=$(tput setaf 9)
+
+# Less colors for man pages
+export PAGER=less
+# Begin blinking
+export LESS_TERMCAP_mb=$red
+# Begin bold
+export LESS_TERMCAP_md=$orange
+# End mode
+export LESS_TERMCAP_me=$default
+# End standout-mode
+export LESS_TERMCAP_se=$default
+# Begin standout-mode - info box
+export LESS_TERMCAP_so=$purple
+# End underline
+export LESS_TERMCAP_ue=$default
+# Begin underline
+export LESS_TERMCAP_us=$green

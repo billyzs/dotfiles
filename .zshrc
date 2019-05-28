@@ -7,6 +7,7 @@ zplug "zsh-users/zsh-completions", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "zsh-users/zsh-syntax-highlighting", from:github,  defer:2
+zplug "agkozak/zsh-z", from:github
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 if ! zplug check --verbose; then
@@ -17,6 +18,11 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+# Virtualenv
+export WORKON_HOME=$DEV/.virtualenvs
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
 
 # misc options
 setopt autocd auto_remove_slash
