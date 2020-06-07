@@ -7,6 +7,11 @@ export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
 export PATH=$ZSH_LOCAL_DIR/bin:$PATH
 [[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
+
+# Virtualenv
+export WORKON_HOME=$DEV/.virtualenvs
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
 # export MANPAGER=most
 
 # Preferred editor for local and remote sessions

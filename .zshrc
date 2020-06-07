@@ -19,11 +19,6 @@ fi
 
 zplug load
 
-# Virtualenv
-export WORKON_HOME=$DEV/.virtualenvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
-source /usr/bin/virtualenvwrapper_lazy.sh
-
 # misc options
 setopt autocd auto_remove_slash
 setopt chase_links correct
@@ -86,3 +81,4 @@ zle -N down-line-or-beginning-search
 
 # had to do this last, for some reason I was getting a non-zero exit code
 spaceship::compose_prompt
+
