@@ -19,6 +19,9 @@ fi
 
 zplug load
 
+source $CONFIG_HOME/zshtheme
+source $CONFIG_HOME/zplug/init.zsh
+
 # misc options
 setopt autocd auto_remove_slash
 setopt chase_links correct

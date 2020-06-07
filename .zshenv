@@ -1,8 +1,6 @@
 # Imports and env vars
 export DEV=$HOME/devel
 export CONFIG_HOME=$HOME/.config
-source $CONFIG_HOME/zshtheme
-source $CONFIG_HOME/zplug/init.zsh
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
 export PATH=$ZSH_LOCAL_DIR/bin:$PATH
