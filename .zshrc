@@ -1,6 +1,6 @@
 # Common Plugins
 ## source everything in the local dir
-for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do source $f; done;
+source $CONFIG_HOME/zplug/init.zsh
 zplug "$ZSH_LOCAL_DIR/dotfiles", from:local
 zplug "zsh-users/zsh-history-substring-search", from:github
 zplug "zsh-users/zsh-completions", from:github
@@ -19,8 +19,9 @@ fi
 
 zplug load
 
+# local plugins
+for f in `find $ZSH_LOCAL_DIR -name "*.plugin.zsh"`; do source $f; done;
 source $CONFIG_HOME/zshtheme
-source $CONFIG_HOME/zplug/init.zsh
 
 # misc options
 setopt autocd auto_remove_slash
