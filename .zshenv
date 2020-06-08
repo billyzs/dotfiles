@@ -1,18 +1,4 @@
-# Imports and env vars
-export DEV=$HOME/devel
-export D=$HOME/devel
-export CONFIG_HOME=$HOME/.config
-export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
-export PATH=$ZSH_LOCAL_DIR/bin:$PATH
-[[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
-
-# Virtualenv
-export WORKON_HOME=$DEV/.virtualenvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
-source /usr/bin/virtualenvwrapper_lazy.sh
-# export MANPAGER=most
-
+# https://wiki.archlinux.org/index.php/Zsh#Startup/Shutdown_files
 # Load Order    Interactive  Interactive  Script
   # Startup       Only login   Always
   # ------------- -----------  -----------  ------
@@ -33,6 +19,22 @@ source /usr/bin/virtualenvwrapper_lazy.sh
   # Note: ZSH seems to read ~/.profile as well, if ~/.zshrc is not present.
 
 # Preferred editor for local and remote sessions
+# Imports and env vars
+export DEV=$HOME/devel
+export D=$HOME/devel
+export CONFIG_HOME=$HOME/.config
+export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
+typeset -U PATH path
+path=("$ZSH_LOCAL_DIR/bin" "$HOME" "$DEV" "$path[@]")
+export PATH
+[[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
+
+# Virtualenv
+export WORKON_HOME=$DEV/.virtualenvs
+export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
+# export MANPAGER=most
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
