@@ -1,5 +1,6 @@
 # Imports and env vars
 export DEV=$HOME/devel
+export D=$HOME/devel
 export CONFIG_HOME=$HOME/.config
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
@@ -23,6 +24,8 @@ fi
 alias ll='ls -ahltrBF --group-directories-first --color=auto --block-size=MB'
 alias clc=clear
 alias quit=exit
+alias -s {cpp,hpp,c,h,cc,md,MD,txt,csv}=$EDITOR
+alias -s git="git clone"
 
 # theme
 export QT_QPA_PLATFORMTHEME="qt5ct"
