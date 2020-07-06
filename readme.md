@@ -9,8 +9,7 @@ git clone --bare https://github.com/billyzs/dotfiles.git $HOME/.dotfiles
 
 Then, remove and backup existing doftiles with
 ```bash
-mkdir -p .dotfiles_backup && dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | \
-xargs -I{} mv {} .dotfiles_backup/{}
+mkdir -p .dotfiles_backup && dtf checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} tar --remove-files -zcvf .dotfiles_backup/backup.tar.gz {}
 ```
 Finally, run
 ```bash
