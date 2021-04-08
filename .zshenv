@@ -26,7 +26,7 @@ export CONFIG_HOME=$HOME/.config
 export ZSH_LOCAL_DIR=$CONFIG_HOME/zsh_local
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bzs/.mujoco/mujoco200/bin
 typeset -U PATH path
-path=("$ZSH_LOCAL_DIR/bin" "$HOME" "$DEV" "$path[@]")
+path=("$HOME/.emacs.d/bin", "$ZSH_LOCAL_DIR/bin" "$HOME" "$DEV" "/opt/cisco/anyconnect/bin" "$path[@]")
 export PATH
 [[ -n `which kitty` ]] && export TERMINAL=`which kitty` # for i3-sensible-terminal
 
@@ -48,6 +48,7 @@ alias quit=exit
 alias reload='exec zsh -l'
 alias -s {cpp,hpp,c,h,cc,md,MD,txt,csv,json,yaml,yml}=$EDITOR
 alias -s git="git clone"
+alias ap=ansible-playbook
 
 # theme
 export QT_QPA_PLATFORMTHEME="qt5ct"
