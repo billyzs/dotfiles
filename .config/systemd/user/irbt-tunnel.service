@@ -1,0 +1,14 @@
+[Unit]
+Description=SSH Tunnel and proxy to warpdrive
+After=vpnagentd.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/ssh -aCTnN -B cscotun0 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -o ForwardX11=no -D 0.0.0.0:1080 bzs@10.22.22.104
+Restart=always
+RestartSec=15
+KillMode=mixed
+
+[Install]
+WantedBy=default.target multi-user.target
+
