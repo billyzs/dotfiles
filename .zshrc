@@ -34,6 +34,7 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # completion 
 autoload -Uz compinit
 compinit # prompt and promptinit is done by the theme
+kitty + complete setup zsh | source /dev/stdin
 zmodload -i zsh/complist
 setopt always_to_end complete_in_word list_ambiguous completealiases hash_list_all
 zstyle ':completion::complete*:' gain-privileges 1
